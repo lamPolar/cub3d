@@ -8,9 +8,10 @@
 # include <fcntl.h>
 # include <string.h>
 # include "../mlx/mlx.h"
+# include "../gnl/get_next_line.h"
 
-# define WINDOWW		1000.0
-# define WINDOWH		1000.0
+# define WINDOWW		1920
+# define WINDOWH		1080
 # define KEY_W          13
 # define KEY_A          0
 # define KEY_S          1
@@ -19,15 +20,18 @@
 # define KEY_RIGHT		124
 # define KEY_ESC		53
 
-typedef struct s_element{
-    //해상도 x, y
-    //N, W, S, E 벽 텍스쳐
-    //sprite 텍스쳐
-    //F 색깔
-    //C 색깔
-    //map x, y ?? 넣을까 말까?
-    //map
-} t_element;
+typedef struct s_info{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		floor;
+	int		ceiling;
+	char	**map;
+	int		map_width;
+	int		map_height;
+	char	player_char;
+} t_info;
 
 typedef struct s_img
 {
@@ -45,13 +49,15 @@ typedef struct s_mlx
 	t_img	img;
 }	t_mlx;
 
-//main.c
-void	print_error(char *str);
-
 //util.c
+void	print_error(char *str);
+int 	create_color(int r, int g, int b);
+
+//ft_util.c
 int     ft_strlen(const char *s);
 void    *ft_calloc(size_t count, size_t size);
 int     ft_atoi(const char *str);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 //raycasting.c
 void    do_mlx(void);
