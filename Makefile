@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -O3
 DIR_MLX = mlx
 MLX_LIB = libmlx.dylib
 DIR_S = sources
-SOURCES = main.c parse.c raycasting.c util.c
+SOURCES = hook.c main.c parse.c raycasting.c util.c
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 OBJS = $(SRCS:.c=.o)
 

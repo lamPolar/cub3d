@@ -11,7 +11,7 @@ void print_error(char *str)
 
 int create_color(int r, int g, int b)
 {
-    return (r << 16 + g << 8 + b);
+    return ((r << 16) + (g << 8) + b);
 	//return (r << 16 | g << 8 | b);
 }
 
@@ -19,6 +19,7 @@ int check_file(char *file)
 {
     int fd;
 
+    //file 확장자가 .cub인지 확인
     fd = open(file, O_RDONLY);
     if (fd == -1)
     {
