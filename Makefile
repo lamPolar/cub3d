@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -O3
 DIR_MLX = mlx
 MLX_LIB = libmlx.dylib
 DIR_S = sources
-SOURCES = main.c
+SOURCES = main.c parse.c raycasting.c util.c
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 OBJS = $(SRCS:.c=.o)
 
@@ -28,7 +28,7 @@ $(MLX_LIB) :
 
 $(NAME): $(OBJS)
 	make $(MLX_LIB)
-	$(CC) $(CFLAGS) -L$(DIR_MLX) -lft -lmlx -framework OpenGL -framework Appkit $^ -o $@
+	$(CC) $(CFLAGS) -L$(DIR_MLX) -lmlx -framework OpenGL -framework Appkit $^ -o $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
