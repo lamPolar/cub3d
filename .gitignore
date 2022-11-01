@@ -55,3 +55,4 @@ libmlx.dylib
 sources/*.o
 mlx/*.*
 cub3d
+.vscode/*
