@@ -16,9 +16,13 @@ CFLAGS = -Wall -Wextra -Werror -O3
 DIR_MLX = mlx
 MLX_LIB = libmlx.dylib
 DIR_S = sources
+DIR_G = gnl
 SOURCES = hook.c main.c parse.c raycasting.c util.c
+GNL_SOURCES = get_next_line.c get_next_line_utils.c
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
+GSRCS = $(addprefix $(DIR_G)/,$(GNL_SOURCES))
 OBJS = $(SRCS:.c=.o)
+GOBJS = $(GSRCS:.c=.o)
 
 all : $(NAME)
 
@@ -26,7 +30,7 @@ $(MLX_LIB) :
 	@make -C $(DIR_MLX)
 	@cp $(DIR_MLX)/$(MLX_LIB) .
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(GOBJS)
 	make $(MLX_LIB)
 	$(CC) $(CFLAGS) -L$(DIR_MLX) -lmlx -framework OpenGL -framework Appkit $^ -o $@
 
@@ -34,7 +38,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(GOBJS)
 	make clean -C $(DIR_MLX)
 	rm -f $(MLX_LIB)
 
