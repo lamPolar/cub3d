@@ -21,7 +21,7 @@ void	*ft_calloc(size_t count, size_t size)
 	new = (void *)malloc(count * size);
 	if (new == NULL)
 	{
-		print_error(strerror(errno));
+		printf("Error\n%s\n", strerror(errno));
 		return (NULL);
 	}
 	index = 0;
@@ -61,4 +61,25 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return ((int)(result * sign));
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	unsigned char	*c1;
+	unsigned char	*c2;
+
+	c1 = (unsigned char *)s1;
+	c2 = (unsigned char *)s2;
+	while (n > 0)
+	{
+		if (*c1 == *c2 && *c1 != '\0')
+		{
+			c1++;
+			c2++;
+			n--;
+		}
+		else
+			return (*c1 - *c2);
+	}
+	return (0);
 }
