@@ -21,16 +21,15 @@
 # define KEY_ESC		53
 
 typedef struct s_info{
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
+	char	**tex;
 	int		floor;
 	int		ceiling;
 	char	**map;
 	int		map_width;
 	int		map_height;
 	char	player_char;
+	int		player_x;
+	int		player_y;
 } t_info;
 
 typedef struct s_img
@@ -49,8 +48,10 @@ typedef struct s_mlx
 	t_img	img;
 }	t_mlx;
 
-//util.c
-void	print_error(char *str);
+//parse_util.c
+t_info  *init_info(void);
+void	print_error_free_info(char *str, t_info *info);
+void    free_info(t_info *info);
 int 	create_color(int r, int g, int b);
 
 //ft_util.c
@@ -65,5 +66,12 @@ void    do_mlx(void);
 //hook.c
 int     key_hook(int keycode, t_mlx *mlx);
 int     close_window(t_mlx *mlx);
+
+//parse.c
+int 	check_file(int argc, char **argv, t_info *info);
+int		parsing(int fd, t_info *info);
+int 	check_line_type(char *line);
+int 	check_map_line(char *line);
+int 	assign_info(int type, char *line, t_info *info);
 
 #endif

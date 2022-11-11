@@ -21,7 +21,7 @@ void	*ft_calloc(size_t count, size_t size)
 	new = (void *)malloc(count * size);
 	if (new == NULL)
 	{
-		print_error(strerror(errno));
+		printf("Error\n%s\n", strerror(errno));
 		return (NULL);
 	}
 	index = 0;
