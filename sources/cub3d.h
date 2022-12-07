@@ -32,19 +32,6 @@
 
 #define  deg2rad(d)     ((d)*M_PI/180.0)
 
-typedef struct s_info{
-	char	**tex;
-	int		floor;
-	int		ceiling;
-	char	*map_temp;
-	char	**map;
-	int		map_width;
-	int		map_height;
-	char	player_char;
-	double	player_x;
-	double	player_y;
-} t_info;
-
 typedef struct s_img
 {
 	void	*img_ptr;
@@ -66,8 +53,22 @@ typedef struct s_ray
 	float	horizontal_angle;
 	float	vertical_angle;
 	float	sight_angle;
-	int		total_ray;
 }	t_ray;
+
+typedef struct s_info{
+	t_mlx	*mlx;
+	t_ray	*ray;
+	char	**tex;
+	int		floor;
+	int		ceiling;
+	char	*map_temp;
+	char	**map;
+	int		map_width;
+	int		map_height;
+	char	player_char;
+	double	player_x;
+	double	player_y;
+}	t_info;
 
 typedef struct s_wall{
 	int		side;
@@ -109,13 +110,16 @@ char	*ft_strdup(const char *s1);
 //ft_split.c
 char	**ft_split(char const *s, char c);
 
-//raycasting.c
+//draw.c
+int		is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit);
+int		get_wall_height(double dist_wall, t_ray *sight);
+void	draw_wall(t_info *info, t_point *now, t_wall *hit);
+void	draw_floor_ceiling(t_info *info);
+void	drawing(t_info *info);
+
+//mlx.c
 void    do_mlx(t_info *info);
 void 	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit);
-void	draw_floor_ceiling(t_info *info, t_mlx *mlx);
-void 	drawing(t_info *info, t_mlx *mlx);
-int 	get_wall_height(double dist_wall, t_ray *sight);
 
 //raycasting_util.c
 double 	get_ray_angle(int number, t_ray *sight);
@@ -124,7 +128,7 @@ double 	get_distance(double x0, double y0, double x1, double y1);
 double 	get_near_point(double now, int move);
 int 	is_zero(double d);
 
-//raycasting2.c
+//raycasting.c
 void	init_sight(char direction, t_ray **sight);
 void	init_points(t_points *points, t_point *now, double ray_angle);
 void	check_hit_point(t_points *points, t_point *now);
@@ -132,8 +136,8 @@ void	calculate_vertical_point(t_points *points, t_wall *hit);
 void	calculate_horizontal_point(t_points *points, t_wall *hit);
 
 //hook.c
-int     key_hook(int keycode, t_mlx *mlx);
-int     close_window(t_mlx *mlx);
+int		key_hook(int keycode, t_info *info);
+int		close_window(t_info *info);
 
 //parse.c
 int 	check_file(int argc, char **argv, t_info *info);

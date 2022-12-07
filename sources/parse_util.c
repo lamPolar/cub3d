@@ -16,15 +16,19 @@ t_info	*init_info(void)
 {
 	t_info	*info;
 
-	info = (t_info *)calloc(1, sizeof(t_info));
+	info = (t_info *)ft_calloc(1, sizeof(t_info));
 	if (info == NULL)
 		exit(1);
-	info->tex = (char **)calloc(4, sizeof(char *));
+	info->tex = (char **)ft_calloc(4, sizeof(char *));
 	if (info->tex == NULL)
 	{
 		free(info);
 		exit(1);
 	}
+	info->mlx = (t_mlx *)ft_calloc(sizeof(t_mlx), 1);
+	info->ray = (t_ray *)ft_calloc(sizeof(t_ray), 1);
+	if (info->mlx == NULL | info->ray == NULL)
+		print_error_free_info(NULL, info);
 	info->floor = -1;
 	info->ceiling = -1;
 	info->map_temp = NULL;
@@ -49,18 +53,25 @@ void	print_error_free_info(char *str, t_info *info)
 	int	i;
 
 	printf("Error\n%s", str);
-	i = 0;
-	while (i < 4)
+	if (info->tex)
 	{
-		if (info->tex[i] != NULL)
-			free(info->tex[i]);
-		i++;
+		i = 0;
+		while (i < 4)
+		{
+			if (info->tex[i] != NULL)
+				free(info->tex[i]);
+			i++;
+		}
+		free(info->tex);
 	}
-	free(info->tex);
 	if (info->map_temp != NULL)
 		free(info->map_temp);
 	if (info->map)
 		free_split(info->map);
+	if (info->mlx)
+		free(info->mlx);
+	if (info->ray)
+		free(info->ray);
 	free(info);
 	exit(1);
 }
