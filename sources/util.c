@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: heeskim <heeskim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,7 @@
 
 #include "cub3d.h"
 
-int	main(int argc, char **argv)
+double	deg2rad(double d)
 {
-	t_info	*info;
-
-	info = init_info();
-	parsing(check_file(argc, argv, info), info);
-	init_sight(info->player_char, &info->ray);
-	do_mlx(info);
-	return (0);
+	return (d * M_PI / 180.0);
 }

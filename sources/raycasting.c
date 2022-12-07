@@ -14,9 +14,9 @@
 
 void	init_sight(char direction, t_ray **sight)
 {
-	t_ray *s;
+	t_ray	*s;
 
-	s = *sight;	
+	s = *sight;
 	s->horizontal_angle = deg2rad(60);
 	s->vertical_angle = s->horizontal_angle / WINDOWW * WINDOWH;
 	if (direction == 'N')
@@ -53,8 +53,10 @@ void	check_hit_point(t_points *points, t_point *now)
 		points->fx = points->slope_x * (points->near_x - now->x) + now->y;
 	if (points->move_y != 0)
 		points->gy = points->slope_y * (points->near_y - now->y) + now->x;
-	points->dist_vertical = get_distance(now->x, now->y, points->near_x, points->fx);
-	points->dist_horizon = get_distance(now->x, now->y, points->gy, points->near_y);
+	points->dist_vertical = get_distance(now->x, now->y, \
+										points->near_x, points->fx);
+	points->dist_horizon = get_distance(now->x, now->y, \
+										points->gy, points->near_y);
 }
 
 void	calculate_vertical_point(t_points *points, t_wall *hit)

@@ -15,7 +15,6 @@
 int	is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit)
 {
 	t_points	*points;
-	int			cell;
 
 	points = (t_points *)ft_calloc(sizeof(t_points), 1);
 	if (points == NULL)
@@ -28,10 +27,7 @@ int	is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit)
 			calculate_vertical_point(points, hit);
 		else
 			calculate_horizontal_point(points, hit);
-		cell = get_cell(points->map_x, points->map_y, info);
-		// if (cell < 0)
-		// 	break; // map 밖으로 나감
-		if (cell == '1')
+		if (get_cell(points->map_x, points->map_y, info) == '1')
 		{
 			free(points);
 			return (1);
@@ -44,7 +40,7 @@ int	is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit)
 	return (0);
 }
 
-int get_wall_height(double dist_wall, t_ray *sight)
+int	get_wall_height(double dist_wall, t_ray *sight)
 {
 	int		wall_height;
 	int		wall_pixel_height;
@@ -70,12 +66,12 @@ void	draw_wall(t_info *info, t_point *now, t_wall *hit)
 	{
 		ray = get_ray_angle(i, info->ray);
 		if (is_wall_hit(ray, now, info, hit) == 0)
-			return ; //null 가드 & 모든걸 프리하고 종료
+			return ;//null 가드 & 모든걸 프리하고 종료
 		wall_distance = get_distance(now->x, now->y, hit->wx, hit->wy);
 		wall_distance *= cos(info->ray->sight_angle - ray);
 		wall_height = get_wall_height(wall_distance, info->ray);
 		ystart = (int)((WINDOWH - wall_height) / 2.0);
-	    yend = ystart + wall_height - 1;
+		yend = ystart + wall_height - 1;
 		if (0 > ystart)
 			ystart = 0;
 		if (WINDOWH - 1 < yend)
@@ -120,7 +116,7 @@ void	drawing(t_info *info)
 		return ;
 	hit = (t_wall *)ft_calloc(sizeof(t_wall), 1);
 	if (hit == NULL)
-		return ; // 여기서 모든걸 프리하고 종료하는 함수로 이동
+		return ;// 여기서 모든걸 프리하고 종료하는 함수로 이동
 	now->x = info->player_x;
 	now->y = info->player_y;
 	draw_floor_ceiling(info);

@@ -14,9 +14,10 @@
 
 double	get_ray_angle(int number, t_ray *sight)
 {
-	double ray;
+	double	ray;
 
-	ray = sight->sight_angle + sight->horizontal_angle * (0.5 - (number / (WINDOWW - 1.0)));
+	ray = sight->sight_angle + sight->horizontal_angle * \
+			(0.5 - (number / (WINDOWW - 1.0)));
 	return (ray);
 }
 
@@ -31,15 +32,15 @@ int	get_cell(int x, int y, t_info *info)
 
 double	get_distance(double x0, double y0, double x1, double y1)
 {
-	double pow;
-	
+	double	pow;
+
 	pow = ((x0 - x1) * (x0 - x1)) + ((y0 - y1) * (y0 - y1));
 	return (sqrt(pow));
 }
 
 double	get_near_point(double now, int move)
 {
-	double near;
+	double	near;
 
 	if (move > 0)
 		near = floor(now) + 1;
