@@ -22,6 +22,13 @@
 # define KEY_RIGHT		124
 # define KEY_ESC		53
 
+# define DIR_N 20
+# define DIR_S 21
+# define DIR_W 22
+# define DIR_E 23
+# define VERTICAL 0
+# define HORIZONTAL 1
+
 typedef struct s_info{
 	char	**tex;
 	int		floor;
@@ -52,11 +59,24 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
-	float horizontal_angle;
-	float vertical_angle;
-	float sight_angle;
-	int total_ray;
+	float	horizontal_angle;
+	float	vertical_angle;
+	float	sight_angle;
+	int		total_ray;
 }	t_ray;
+
+typedef struct s_wall{
+	int		side;
+	double wx;
+	double wy;
+}	t_wall;
+
+typedef struct s_point{
+	double	dx;
+	double	dy;
+	int		x;
+	int		y;
+}	t_point;
 
 //parse_util.c
 t_info  *init_info(void);
