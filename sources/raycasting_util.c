@@ -2,7 +2,7 @@
 
 double get_ray_angle(int number, t_ray *sight)
 {
-	float ray_angle;
+	double ray_angle;
 
 	ray_angle = sight->sight_angle + (0.5 - (number/ sight->total_ray)) * sight->horizontal_angle;
 	return (ray_angle);

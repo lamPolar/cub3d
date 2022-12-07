@@ -87,21 +87,21 @@ void drawing(t_info *info, t_mlx *mlx)
 	if (hit == NULL)
 		return ; // 여기서 모든걸 프리하고 종료하는 함수로 이동
 	// player를 t_point로 만들면 now = info->player;
-	//now->x = info->player_x;
-	//now->y = info->player_y;
-	now->x = 0.5;
-	now->y = 0.5;
+	now->x = info->player_x;
+	now->y = info->player_y;
 	draw_floor_ceiling(info, mlx);
 	//draw wall
 	i = 0;
 	while (i < sight->total_ray)
 	{
-		if (is_wall_hit(get_ray_angle(i, sight), now, info, hit) == 0)
-			return ; //null 가드 & 모든걸 프리하고 종료
-		double wall_distance = get_distance(now->x, now->y, hit->wx, hit->wy);
-		printf("Wall Distance : %f", wall_distance);
-		double wall_height = get_wall_height(wall_distance, sight);
-		printf("Wall Height : %f", wall_height);
+		// double angle = get_ray_angle(i, sight);
+		// printf("ray : %f\n", angle);
+		// if (is_wall_hit(get_ray_angle(i, sight), now, info, hit) == 0)
+		// 	return ; //null 가드 & 모든걸 프리하고 종료
+		// double wall_distance = get_distance(now->x, now->y, hit->wx, hit->wy);
+		// printf("Wall Distance : %f", wall_distance);
+		// double wall_height = get_wall_height(wall_distance, sight);
+		// printf("Wall Height : %f", wall_height);
 		i += 1;
 	}
 	free(sight);
@@ -121,8 +121,6 @@ void do_mlx(t_info *info)
 	mlx_key_hook(mlx.win_ptr, key_hook, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 1L << 5, close_window, &mlx);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img.img_ptr, 0, 0);
-	info->ceiling =  0x00FF0000;
-	info->floor = 0x0000FF00;
 	drawing(info, &mlx);
     mlx_loop(mlx.mlx_ptr);
 }
