@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/07 23:17:55 by sojoo             #+#    #+#             */
+/*   Updated: 2022/12/07 23:18:13 by sojoo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static char	**ft_free_result(char **result, int total)
@@ -9,7 +21,7 @@ static char	**ft_free_result(char **result, int total)
 	{
 		free(result[index]);
 		index++;
-    }
+	}
 	free(result);
 	return (0);
 }
@@ -49,7 +61,7 @@ static int	ft_count_word_len(const char *s, char c)
 	return (count);
 }
 
-static void ft_strlcpy(char *dst, const char *src, size_t dstsize)
+static void	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	index;
 
