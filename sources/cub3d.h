@@ -7,11 +7,13 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <string.h>
+# include <math.h>
 # include "../mlx/mlx.h"
 # include "../gnl/get_next_line.h"
 
 # define WINDOWW		1920
 # define WINDOWH		1080
+
 # define KEY_W          13
 # define KEY_A          0
 # define KEY_S          1
@@ -48,6 +50,14 @@ typedef struct s_mlx
 	t_img	img;
 }	t_mlx;
 
+typedef struct s_ray
+{
+	float horizontal_angle;
+	float vertical_angle;
+	float sight_angle;
+	int total_ray;
+}	t_ray;
+
 //parse_util.c
 t_info  *init_info(void);
 void	print_error_free_info(char *str, t_info *info);
@@ -61,7 +71,7 @@ int     ft_atoi(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 //raycasting.c
-void    do_mlx(void);
+void    do_mlx(t_info *info);
 
 //hook.c
 int     key_hook(int keycode, t_mlx *mlx);
