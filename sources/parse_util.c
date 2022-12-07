@@ -13,8 +13,9 @@ t_info  *init_info(void)
         free(info);
         exit(1);
     }
-    info->floor = 0;
-    info->ceiling = 0;
+    info->floor = -1;
+    info->ceiling = -1;
+    info->map_temp = NULL;
     info->map = NULL;
     info->map_width = 0;
     info->map_height = 0;
@@ -24,16 +25,18 @@ t_info  *init_info(void)
     return (info);
 }
 
-void    print_error_free_info(char *str, t_info *info)
+void    error_in_parsing(char *line, char *str, int fd, t_info *info)
 {
-    printf("Error\n%s", str);
-    free_info(info);
+    free(line);
+    close(fd);
+    print_error_free_info(str, info);
 }
 
-void    free_info(t_info *info)
+void    print_error_free_info(char *str, t_info *info)
 {
     int i;
 
+    printf("Error\n%s", str);
     i = 0;
     while (i < 4)
     {
@@ -42,11 +45,47 @@ void    free_info(t_info *info)
         i++;
     }
     free(info->tex);
+    if (info->map_temp)
+        free(info->map_temp);
+    if (info->map)
+        free_split(info->map);
     free(info);
     exit(1);
 }
 
-int create_color(int r, int g, int b)
+void    free_split(char **split)
 {
+    int i;
+
+    i = 0;
+    while (split[i])
+    {
+        free(split[i]);
+        i++;
+    }
+    free(split);
+}
+
+int create_color(char **split)
+{
+    int i;
+    int r;
+    int g;
+    int b;
+
+    i = 0;
+    while (split[i])
+        i++;
+    if (i != 3)
+    {
+        free_split(split);
+        return (-1);
+    }
+    r = ft_atoi(split[0]);
+    g = ft_atoi(split[1]);
+    b = ft_atoi(split[2]);
+    free_split(split);
+    if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
+        return (-1);
     return ((r << 16) + (g << 8) + b);
 }
