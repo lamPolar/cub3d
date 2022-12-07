@@ -1,23 +1,23 @@
 #include "cub3d.h"
 
-double get_ray_angle(int number, t_ray *sight)
+double	get_ray_angle(int number, t_ray *sight)
 {
-	double ray_angle;
+	double ray;
 
-	ray_angle = sight->sight_angle + (0.5 - (number/ sight->total_ray)) * sight->horizontal_angle;
-	return (ray_angle);
+	ray = sight->sight_angle + sight->horizontal_angle * (0.5 - (number / (WINDOWW - 1.0)));
+	return (ray);
 }
 
-int get_cell(int x, int y, t_info *info)
+int	get_cell(int x, int y, t_info *info)
 {
 	if (x < 0 || x >= info->map_width)
-		return (-1);
+		return (-1);	
 	if (y < 0 || y >= info->map_height)
 		return (-1);
-	return (info->map[x][y]);
+	return (info->map[y][x]);
 }
 
-double get_distance(double x0, double y0, double x1, double y1)
+double	get_distance(double x0, double y0, double x1, double y1)
 {
 	double pow;
 	
@@ -25,7 +25,7 @@ double get_distance(double x0, double y0, double x1, double y1)
 	return (sqrt(pow));
 }
 
-double get_near_point(double now, double move)
+double	get_near_point(double now, int move)
 {
 	double near;
 
@@ -38,7 +38,7 @@ double get_near_point(double now, double move)
 	return (near);
 }
 
-int is_zero(double d)
+int	is_zero(double d)
 {
 	if (fabs(d) < 1e-06)
 		return (0);

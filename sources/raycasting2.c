@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	init_sight(t_ray **sight)
+void	init_sight(char direction, t_ray **sight)
 {
 	float angle;
 	t_ray *s;
@@ -9,14 +9,22 @@ void	init_sight(t_ray **sight)
 	//if (*sight == NULL)
 	// null 처리
 	s = *sight;	
-	s->horizontal_angle = 60;
+	s->horizontal_angle = deg2rad(60);
 	if (WINDOWH != 0 && WINDOWW != 0 && s->horizontal_angle != 0)
 	{
 		angle = s->horizontal_angle / WINDOWW * WINDOWH;
 		s->vertical_angle = angle;
 	}
 	s->total_ray = 20;
-	s->sight_angle = 1;
+	//s->sight_angle = deg2rad(1);
+	if (direction == 'N')
+		s->sight_angle = deg2rad(90);
+	else if (direction == 'W')
+		s->sight_angle = deg2rad(270);
+	else if (direction == 'S')
+		s->sight_angle = deg2rad(180);
+	else if (direction == 'E')
+		s->sight_angle = deg2rad(0);	
 	//여기서 sight_angle을 바라보는 방향에 따라 바꿔주기 (N,S,W,E)
 }
 
@@ -50,22 +58,21 @@ void	check_hit_point(t_points *points, t_point *now)
 
 void	calculate_vertical_point(t_points *points, t_wall *hit)
 {
-		if (points->move_x > 0)
-			points->map_x = (int)points->near_x;
-		else
-			points->map_x = (int)points->near_x - 1;
-		points->map_y = (int)points->fx;
-		if (points->move_x > 0)
-			points->near_x += 1;
-		else if (points->move_x < 0)
-			points->near_x -= 1;
-		if (points->move_x > 0)
-			hit->side = DIR_W;
-		else
-			hit->side = DIR_E;
-		hit->wx = points->near_x;
-		hit->wy = points->fx;
-		points->near_x += points->move_x;
+	if (points->move_x > 0)
+		points->map_x = (int)points->near_x;
+	else
+		points->map_x = (int)points->near_x - 1;
+	points->map_y = (int)points->fx;
+	if (points->move_x > 0)
+		points->near_x += 1;
+	else if (points->move_x < 0)
+		points->near_x -= 1;
+	if (points->move_x > 0)
+		hit->side = DIR_W;
+	else
+		hit->side = DIR_E;
+	hit->wx = points->near_x;
+	hit->wy = points->fx;
 }
 
 void	calculate_horizontal_point(t_points *points, t_wall *hit)
@@ -85,5 +92,4 @@ void	calculate_horizontal_point(t_points *points, t_wall *hit)
 		hit->side = DIR_N;
 	hit->wx = points->gy;
 	hit->wy = points->near_y;
-	points->near_y += points->move_y;
 }

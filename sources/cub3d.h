@@ -30,6 +30,8 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 
+#define  deg2rad(d)     ((d)*M_PI/180.0)
+
 typedef struct s_info{
 	char	**tex;
 	int		floor;
@@ -121,11 +123,11 @@ int 	get_wall_height(double dist_wall, t_ray *sight);
 double 	get_ray_angle(int number, t_ray *sight);
 int 	get_cell(int x, int y, t_info *info);
 double 	get_distance(double x0, double y0, double x1, double y1);
-double 	get_near_point(double now, double move);
+double 	get_near_point(double now, int move);
 int 	is_zero(double d);
 
 //raycasting2.c
-void	init_sight(t_ray **sight);
+void	init_sight(char direction, t_ray **sight);
 void	init_points(t_points *points, t_point *now, double ray_angle);
 void	check_hit_point(t_points *points, t_point *now);
 void	calculate_vertical_point(t_points *points, t_wall *hit);
