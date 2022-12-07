@@ -58,13 +58,13 @@ int get_tex_color(t_wall *hit, int text_x, int text_y, t_info *info)
 	int		color;
 
 	if (hit->side == DIR_N)
-		src = info->mlx->tex[0];
+		src = &info->mlx->tex[0];
 	if (hit->side == DIR_S)
-		src = info->mlx->tex[1];
+		src = &info->mlx->tex[1];
 	if (hit->side == DIR_W)
-		src = info->mlx->tex[2];
+		src = &info->mlx->tex[2];
 	if (hit->side == DIR_E)
-		src = info->mlx->tex[3];
+		src = &info->mlx->tex[3];
 	color = *(unsigned int *)(src->img_ptr + text_y * src->line_length \
 			+ text_x * src->bits_per_pixel / 8);
 	return (color);

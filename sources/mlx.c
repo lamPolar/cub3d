@@ -34,8 +34,7 @@ static void init_texture(t_info *info)
 		// printf("info->tex[i] : \'%s\'\n", info->tex[i]);
 		tex.img_ptr = mlx_xpm_file_to_image(info->mlx->mlx_ptr, \
 											info->tex[i], &size, &size); 
-		//파일을 못찾으면 seg fault가 나는거같은데..?
-		// tex.img_ptr== null 에러에 걸려서 프린트됨 
+		//왜 seg fault가 나지?
 		if (tex.img_ptr == NULL)
 		{
 			printf("Error\nNo texture file\n");
