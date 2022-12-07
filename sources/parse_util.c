@@ -65,27 +65,3 @@ void    free_split(char **split)
     }
     free(split);
 }
-
-int create_color(char **split)
-{
-    int i;
-    int r;
-    int g;
-    int b;
-
-    i = 0;
-    while (split[i])
-        i++;
-    if (i != 3)
-    {
-        free_split(split);
-        return (-1);
-    }
-    r = ft_atoi(split[0]);
-    g = ft_atoi(split[1]);
-    b = ft_atoi(split[2]);
-    free_split(split);
-    if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255)
-        return (-1);
-    return ((r << 16) + (g << 8) + b);
-}
