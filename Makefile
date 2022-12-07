@@ -19,7 +19,7 @@ DIR_S = sources
 DIR_G = gnl
 SOURCES = hook.c main.c parse.c raycasting.c parse_util.c ft_util.c \
 		ft_str_util.c raycasting_util.c ft_split.c parse_assign.c parse_check.c \
-		parse_line.c parse_map.c draw.c mlx.c
+		parse_line.c parse_map.c draw.c mlx.c util.c
 GNL_SOURCES = get_next_line.c get_next_line_utils.c
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 GSRCS = $(addprefix $(DIR_G)/,$(GNL_SOURCES))
