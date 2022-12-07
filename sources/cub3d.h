@@ -26,12 +26,13 @@ typedef struct s_info{
 	char	**tex;
 	int		floor;
 	int		ceiling;
+	char	*map_temp;
 	char	**map;
 	int		map_width;
 	int		map_height;
 	char	player_char;
-	int		player_x;
-	int		player_y;
+	double	player_x;
+	double	player_y;
 } t_info;
 
 typedef struct s_img
@@ -60,15 +61,19 @@ typedef struct s_ray
 
 //parse_util.c
 t_info  *init_info(void);
+void    error_in_parsing(char *line, char *str, int fd, t_info *info);
 void	print_error_free_info(char *str, t_info *info);
-void    free_info(t_info *info);
-int 	create_color(int r, int g, int b);
+void    free_split(char **split);
+int 	create_color(char **split);
 
 //ft_util.c
 int     ft_strlen(const char *s);
 void    *ft_calloc(size_t count, size_t size);
 int     ft_atoi(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strdup(const char *s1);
 
 //raycasting.c
 void    do_mlx(t_info *info);
@@ -82,6 +87,17 @@ int 	check_file(int argc, char **argv, t_info *info);
 int		parsing(int fd, t_info *info);
 int 	check_line_type(char *line);
 int 	check_map_line(char *line);
-int 	assign_info(int type, char *line, t_info *info);
+int 	assign_info(int type, char *line, int fd, t_info *info);
+int 	check_player(t_info *info);
+int		check_map(t_info *info);
+int 	check_edge(char *line);
+int 	check_first_line(t_info *info);
+int 	check_last_line(t_info *info);
+int 	check_middle_line(t_info *info);
+int 	check_arround_space(char **map, int i, int j, char player);
+int 	check_arround_zero(char **map, int i, int j);
+
+//ft_split.c
+char	**ft_split(char const *s, char c);
 
 #endif
