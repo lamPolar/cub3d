@@ -6,7 +6,7 @@
 #    By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 18:22:58 by heeskim           #+#    #+#              #
-#    Updated: 2022/12/07 15:58:19 by sojoo            ###   ########.fr        #
+#    Updated: 2022/12/07 22:41:24 by sojoo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ DIR_MLX = mlx
 MLX_LIB = libmlx.dylib
 DIR_S = sources
 DIR_G = gnl
-SOURCES = hook.c main.c parse.c raycasting.c parse_util.c ft_util.c raycasting2.c raycasting_util.c ft_split.c
+SOURCES = hook.c main.c parse.c raycasting.c parse_util.c ft_util.c ft_str_util.c raycasting2.c raycasting_util.c ft_split.c parse_assign.c parse_check.c parse_line.c parse_map.c
 GNL_SOURCES = get_next_line.c get_next_line_utils.c
 SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
 GSRCS = $(addprefix $(DIR_G)/,$(GNL_SOURCES))
