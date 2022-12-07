@@ -52,19 +52,37 @@ int	get_wall_height(double dist_wall, t_ray *sight)
 	return (wall_pixel_height);
 }
 
+int get_tex_color(t_wall *hit, int text_x, int text_y, t_info *info)
+{
+	t_img	*src;
+	int		color;
+
+	if (hit->side == DIR_N)
+		src = info->mlx->tex[0];
+	if (hit->side == DIR_S)
+		src = info->mlx->tex[1];
+	if (hit->side == DIR_W)
+		src = info->mlx->tex[2];
+	if (hit->side == DIR_E)
+		src = info->mlx->tex[3];
+	color = *(unsigned int *)(src->img_ptr + text_y * src->line_length \
+			+ text_x * src->bits_per_pixel / 8);
+	return (color);
+}
+
 void	draw_wall(t_info *info, t_point *now, t_wall *hit)
 {
 	double	wall_distance;
 	double	wall_height;
 	int		ystart;
 	int		yend;
-	int		i;
+	int		x;
 	double	ray;
 
-	i = 0;
-	while (i < WINDOWW)
+	x = 0;
+	while (x < WINDOWW)
 	{
-		ray = get_ray_angle(i, info->ray);
+		ray = get_ray_angle(x, info->ray);
 		if (is_wall_hit(ray, now, info, hit) == 0)
 			return ;//null 가드 & 모든걸 프리하고 종료
 		wall_distance = get_distance(now->x, now->y, hit->wx, hit->wy);
@@ -76,12 +94,29 @@ void	draw_wall(t_info *info, t_point *now, t_wall *hit)
 			ystart = 0;
 		if (WINDOWH - 1 < yend)
 			yend = WINDOWH - 1;
-		while (ystart < yend)
-		{
-			my_mlx_pixel_put(&info->mlx->img, WINDOWW - i, ystart, 0x0000FF00);
-			ystart += 1;
-		}
-		i += 1;
+		// //가로축에 맞았을 경우
+		// int text_x;
+		// int text_y;
+		// if (hit->side == DIR_N || hit->side == DIR_S)
+		// 	text_x = (int)fmod(hit->wx, 1) * 100;
+		// //x 에 대해서 상대적인 텍스쳐 x의값 구하기
+		// else
+		// 	text_x = (int)fmod(hit->wy, 1) * 100;
+		// //세로축에 맞았을 경우
+		// //y 에 대해서 상대적인 텍스쳐 x값 구하기
+		// while (ystart < yend)
+		// {
+		// 	text_y = (ystart - (WINDOWH/ 2 - wall_height)) * 100 / wall_height;
+		// 	//y 에 대해서 상대적인 텍스쳐의 y의 값 구하기
+		// 	//상대적인 텍스쳐의 x, y값에 해당하는 텍스쳐의 값 가져오기
+		// 	t_img *dst;
+
+		// 	dst = &info->mlx->img;
+		// 	*(unsigned int *)(dst->img_ptr + ystart * dst->line_length + x * dst->bits_per_pixel / 8) = get_tex_color(hit, text_x, text_y, info);
+		// 	// my_mlx_pixel_put(&info->mlx->img, WINDOWW - x, ystart, get_tex_color(hit, text_x, text_y, info));
+		// 	ystart += 1;
+		// }
+		x += 1;
 	}
 }
 

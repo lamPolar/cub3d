@@ -56,6 +56,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
+	t_img	tex[4];
 }	t_mlx;
 
 typedef struct s_ray
