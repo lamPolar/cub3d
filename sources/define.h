@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 11:41:18 by sojoo             #+#    #+#             */
-/*   Updated: 2022/12/08 11:45:29 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:20:26 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 
-# define TEXTURE_SIZE 100
+# define TEXTURE_SIZE 32
 
 typedef struct s_img
 {

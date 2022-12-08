@@ -1,9 +1,12 @@
+WE ./textures/wall.xpm
+
 NO ./textures/grey.xpm
 SO ./textures/green.xpm
-WE ./textures/wall.xpm
-EA ./textures/blue.xpm
-F 220,100,0
-C 225,30,0
+EA           ./textures/blue.xpm
+
+C 100,95,95
+F 150,200,42
+
         1111111111111111111111111
         1000000000110000000000001
         101100000111000000E000001

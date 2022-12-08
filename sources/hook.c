@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 03:15:20 by heeskim           #+#    #+#             */
-/*   Updated: 2022/12/08 11:55:47 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 13:55:47 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	moving_ws(int keycode, t_info *info)
 		dx = -0.2 * cos(info->ray->sight_angle);
 		dy = -0.2 * sin(info->ray->sight_angle);
 	}
-	cell = get_cell((int)info->player_x + dx, (int)info->player_y + dy, info);
-	if (cell == '0' || cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
+	cell = get_cell((int)floor(info->player_x + dx), \
+			(int)floor(info->player_y + dy), info);
+	if (cell == '0' || cell == info->player_char)
 	{
 		info->player_x += dx;
 		info->player_y += dy;
@@ -56,8 +57,9 @@ void	moving_ad(int keycode, t_info *info)
 		dx = 0.2 * cos(info->ray->sight_angle + M_PI_2);
 		dy = 0.2 * sin(info->ray->sight_angle + M_PI_2);
 	}
-	cell = get_cell((int)info->player_x + dx, (int)info->player_y + dy, info);
-	if (cell == '0' || cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
+	cell = get_cell((int)floor(info->player_x + dx), \
+			(int)floor(info->player_y + dy), info);
+	if (cell == '0' || cell == info->player_char)
 	{
 		info->player_x += dx;
 		info->player_y += dy;
