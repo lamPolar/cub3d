@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:36:43 by sojoo             #+#    #+#             */
-/*   Updated: 2022/12/07 23:23:03 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 11:51:40 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,4 @@ void	parsing(int fd, t_info *info)
 	if (check_player(info) == 0 || check_map(info) == 0)
 		print_error_free_info("Invalid map\n", info);
 	free(info->map_temp);
-	// else {
-	//	 int i = 0;
-	//	 while (i < 4)
-	//	 {
-	//		 if (info->tex[i] != NULL)
-	//			 printf("%s\n", info->tex[i]);
-	//		 i++;
-	//	 }
-	//	 printf("%d\n", info->floor);
-	//	 printf("%d\n", info->ceiling);
-	//	 i = 0;
-	//	 while (info->map[i])
-	//	 {
-	//		 printf("%s\n", info->map[i]);
-	//		 i++;
-	//	 }
-	//	 printf("%d\n", info->map_width);
-	//	 printf("%d\n", info->map_height);
-	//	 printf("%c %f %f\n", info->player_char, info->player_x, info->player_y);
-	// }
 }

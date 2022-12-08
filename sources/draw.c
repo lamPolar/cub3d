@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: heeskim <heeskim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 03:15:28 by heeskim           #+#    #+#             */
-/*   Updated: 2022/12/08 03:15:31 by heeskim          ###   ########.fr       */
+/*   Updated: 2022/12/08 11:48:06 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,13 @@ int	is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit)
 	return (0);
 }
 
-int	get_wall_height(double dist_wall, t_ray *sight)
-{
-	int		wall_height;
-	int		wall_pixel_height;
-	double	total_height;
-
-	wall_height = 1;
-	total_height = dist_wall * tan(sight->vertical_angle / 2.0);
-	wall_pixel_height = WINDOWH * wall_height / (2.0 * total_height);
-	return (wall_pixel_height);
-}
-
 void	fill_tex_color(t_info *info, t_wall *hit, int x, double wall_height)
 {
-	int	ystart;
-	int	yend;
-	int	text_x;
-	int	text_y;
-	unsigned int color;
+	int				ystart;
+	int				yend;
+	int				text_x;
+	int				text_y;
+	unsigned int	color;
 
 	ystart = (int)((WINDOWH - wall_height) / 2.0);
 	yend = ystart + wall_height - 1;
@@ -72,13 +60,11 @@ void	fill_tex_color(t_info *info, t_wall *hit, int x, double wall_height)
 		text_x = fmod(hit->wy, 1) * TEXTURE_SIZE;
 	while (ystart < yend)
 	{
-		text_y = (ystart - (WINDOWH / 2 - wall_height)) * TEXTURE_SIZE / wall_height;
-		color = my_mlx_get_color(&info->mlx->tex[hit->side - 20], text_x, text_y);
-		my_mlx_pixel_put(&info->mlx->img, WINDOWW-x, ystart, color);
-		//왜 한쪽은 잘나오고 한쪽은 찌찌그그러러져서 나나오오는는걸걸까까..?
-		// 찌그러진게 아니고 xpm자체가 그렇게 생긴걸까?
-		// tex[0], tex[1]. tex[2]. tex[3]간에 서로의 공간을 인정해주지 않아서..?
-		//그럼 이거 다 말록해줘야되는데..?ㅜ
+		text_y = (ystart - (WINDOWH / 2 - wall_height)) * \
+			TEXTURE_SIZE / wall_height;
+		color = my_mlx_get_color(&info->mlx->tex[hit->side - 20], \
+			text_x, text_y);
+		my_mlx_pixel_put(&info->mlx->img, WINDOWW - x, ystart, color);
 		ystart += 1;
 	}
 }
@@ -95,7 +81,7 @@ void	draw_wall(t_info *info, t_point *now, t_wall *hit)
 	{
 		ray = get_ray_angle(x, info->ray);
 		if (is_wall_hit(ray, now, info, hit) == 0)
-			return ;//null 가드 & 모든걸 프리하고 종료
+			return ;
 		wall_distance = get_distance(now->x, now->y, hit->wx, hit->wy);
 		wall_distance *= cos(info->ray->sight_angle - ray);
 		wall_height = get_wall_height(wall_distance, info->ray);
@@ -135,7 +121,7 @@ void	drawing(t_info *info)
 		return ;
 	hit = (t_wall *)ft_calloc(sizeof(t_wall), 1);
 	if (hit == NULL)
-		return ;// 여기서 모든걸 프리하고 종료하는 함수로 이동
+		return ;
 	now->x = info->player_x;
 	now->y = info->player_y;
 	draw_floor_ceiling(info);
