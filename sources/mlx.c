@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 03:15:48 by heeskim           #+#    #+#             */
-/*   Updated: 2022/12/08 14:16:26 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 19:36:19 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_texture(t_info *info)
 		tex->img_ptr = mlx_xpm_file_to_image(info->mlx->mlx_ptr, \
 											info->tex[i], &size, &size);
 		if (tex->img_ptr == NULL)
-			print_error_free_info("Error\nmlx function error\n", info);
+			print_error_free_info("Error\nFile doesn't exist\n", info);
 		tex->addr = (char *)mlx_get_data_addr(tex->img_ptr, \
 				&(tex->bits_per_pixel), &(tex->line_length), &(tex->endian));
 		if (tex->addr == NULL)

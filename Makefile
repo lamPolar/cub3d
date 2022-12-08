@@ -6,13 +6,13 @@
 #    By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/19 18:22:58 by heeskim           #+#    #+#              #
-#    Updated: 2022/12/07 22:41:24 by sojoo            ###   ########.fr        #
+#    Updated: 2022/12/08 19:36:52 by sojoo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 NAME = cub3D
-CFLAGS = -Wall -Wextra -Werror -O3 -g
+CFLAGS = -Wall -Wextra -Werror -O3 -g -fsanitize=address
 DIR_MLX = mlx
 MLX_LIB = libmlx.dylib
 DIR_S = sources

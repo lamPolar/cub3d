@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:36:43 by sojoo             #+#    #+#             */
-/*   Updated: 2022/12/08 14:12:45 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 19:33:32 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,4 @@ void	parsing(int fd, t_info *info)
 		info->map_height--;
 	if (check_player(info) == 0 || check_map(info) == 0)
 		print_error_free_info("Error\nInvalid map\n", info);
-	free(info->map_temp);
 }
