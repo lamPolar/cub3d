@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 03:15:48 by heeskim           #+#    #+#             */
-/*   Updated: 2022/12/08 11:56:36 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:16:26 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,11 @@ void	init_texture(t_info *info)
 		tex->img_ptr = mlx_xpm_file_to_image(info->mlx->mlx_ptr, \
 											info->tex[i], &size, &size);
 		if (tex->img_ptr == NULL)
-		{
-			printf("Error\nNo texture file\n");
-			return ;
-		}
+			print_error_free_info("Error\nmlx function error\n", info);
 		tex->addr = (char *)mlx_get_data_addr(tex->img_ptr, \
 				&(tex->bits_per_pixel), &(tex->line_length), &(tex->endian));
 		if (tex->addr == NULL)
-		{
-			printf("Error\n");
-			return ;
-		}
+			print_error_free_info("Error\nmlx function error\n", info);
 		i++;
 	}
 }
@@ -68,12 +62,12 @@ void	do_mlx(t_info *info)
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WINDOWW, WINDOWH, "cub3D");
 	mlx->img.img_ptr = mlx_new_image(mlx->mlx_ptr, WINDOWW, WINDOWH);
 	if (mlx->img.img_ptr == NULL)
-		printf("Error");
+		print_error_free_info("Error\nmlx function error\n", info);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img_ptr, \
 					&mlx->img.bits_per_pixel, &mlx->img.line_length, \
 					&mlx->img.endian);
 	if (mlx->img.addr == NULL)
-		printf("Error");
+		print_error_free_info("Error\nmlx function error\n", info);
 	mlx_key_hook(mlx->win_ptr, key_hook, info);
 	mlx_hook(mlx->win_ptr, 17, 1L << 5, close_window, info);
 	drawing(info);

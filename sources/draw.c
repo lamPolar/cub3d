@@ -6,19 +6,19 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 03:15:28 by heeskim           #+#    #+#             */
-/*   Updated: 2022/12/08 11:48:06 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:19:08 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit)
+void	is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit)
 {
 	t_points	*points;
 
 	points = (t_points *)ft_calloc(sizeof(t_points), 1);
 	if (points == NULL)
-		return (0);
+		print_error_free_info("Error\nFailed to allocate memory\n", info);
 	init_points(points, now, ray_angle);
 	while (1)
 	{
@@ -30,14 +30,13 @@ int	is_wall_hit(double ray_angle, t_point *now, t_info *info, t_wall *hit)
 		if (get_cell(points->map_x, points->map_y, info) == '1')
 		{
 			free(points);
-			return (1);
+			return ;
 		}
 		if (hit->side == DIR_W || hit->side == DIR_E)
 			points->near_x += points->move_x;
 		else
 			points->near_y += points->move_y;
 	}
-	return (0);
 }
 
 void	fill_tex_color(t_info *info, t_wall *hit, int x, double wall_height)
@@ -80,8 +79,7 @@ void	draw_wall(t_info *info, t_point *now, t_wall *hit)
 	while (x < WINDOWW)
 	{
 		ray = get_ray_angle(x, info->ray);
-		if (is_wall_hit(ray, now, info, hit) == 0)
-			return ;
+		is_wall_hit(ray, now, info, hit);
 		wall_distance = get_distance(now->x, now->y, hit->wx, hit->wy);
 		wall_distance *= cos(info->ray->sight_angle - ray);
 		wall_height = get_wall_height(wall_distance, info->ray);
@@ -118,10 +116,13 @@ void	drawing(t_info *info)
 
 	now = (t_point *)ft_calloc(sizeof(t_point), 1);
 	if (now == NULL)
-		return ;
+		print_error_free_info("Error\nFailed to allocate memory\n", info);
 	hit = (t_wall *)ft_calloc(sizeof(t_wall), 1);
 	if (hit == NULL)
-		return ;
+	{
+		free(now);
+		print_error_free_info("Error\nFailed to allocate memory\n", info);
+	}
 	now->x = info->player_x;
 	now->y = info->player_y;
 	draw_floor_ceiling(info);

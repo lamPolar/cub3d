@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 23:33:01 by sojoo             #+#    #+#             */
-/*   Updated: 2022/12/07 23:33:18 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:13:18 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_info	*init_info(void)
 	info->mlx = (t_mlx *)ft_calloc(sizeof(t_mlx), 1);
 	info->ray = (t_ray *)ft_calloc(sizeof(t_ray), 1);
 	if (info->mlx == NULL | info->ray == NULL)
-		print_error_free_info(NULL, info);
+		print_error_free_info("Error\nFailed to allocate memory\n", info);
 	info->floor = -1;
 	info->ceiling = -1;
 	info->map_temp = NULL;
@@ -52,7 +52,7 @@ void	print_error_free_info(char *str, t_info *info)
 {
 	int	i;
 
-	printf("Error\n%s", str);
+	printf("%s", str);
 	if (info->tex)
 	{
 		i = 0;

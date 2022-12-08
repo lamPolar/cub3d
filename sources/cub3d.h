@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 03:16:07 by heeskim           #+#    #+#             */
-/*   Updated: 2022/12/08 12:01:29 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:17:43 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char			*ft_strdup(const char *s1);
 char			**ft_split(char const *s, char c);
 
 //draw.c
-int				is_wall_hit(double ray_angle, t_point *now, \
+void			is_wall_hit(double ray_angle, t_point *now, \
 							t_info *info, t_wall *hit);
 void			fill_tex_color(t_info *info, t_wall *hit, int x, \
 							double wall_height);

@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 22:28:21 by sojoo             #+#    #+#             */
-/*   Updated: 2022/12/07 23:24:48 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:24:56 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	assign_info(int type, char *line, int fd, t_info *info)
 		else
 			info->map_temp = ft_strjoin(info->map_temp, line);
 		if (info->map_temp == NULL)
-			error_in_parsing(line, "Failed to allocate memory\n", fd, info);
+			error_in_parsing(line, "Error\nFailed to allocate memory\n", \
+							fd, info);
 	}
 }
 
@@ -41,16 +42,17 @@ void	assign_tex(int type, char *line, int fd, t_info *info)
 	int	len;
 
 	if (info->tex[type] != NULL)
-		error_in_parsing(line, "Duplicate texture information\n", fd, info);
+		error_in_parsing(line, "Error\nDuplicate texture information\n", \
+						fd, info);
 	i = 2;
 	len = 0;
 	while (line[i] == ' ')
 		i++;
 	while (line[i++] != '\n')
 		len++;
-	info->tex[type] = (char *)calloc(len + 1, sizeof(char));
+	info->tex[type] = (char *)ft_calloc(len + 1, sizeof(char));
 	if (info->tex[type] == NULL)
-		error_in_parsing(line, "Failed to allocate memory\n", fd, info);
+		error_in_parsing(line, "Error\nFailed to allocate memory\n", fd, info);
 	i -= len + 1;
 	j = 0;
 	while (j < len)
@@ -66,7 +68,7 @@ void	assign_color(int type, char *line, int fd, t_info *info)
 	char	**split;
 
 	if ((type == 4 && info->floor != -1) || (type == 5 && info->ceiling != -1))
-		error_in_parsing(line, "Duplicate color information\n", fd, info);
+		error_in_parsing(line, "Error\nDuplicate color information\n", fd, info);
 	i = 1;
 	len = 0;
 	while (line[i] == ' ')
@@ -78,7 +80,7 @@ void	assign_color(int type, char *line, int fd, t_info *info)
 	free(str);
 	i = create_color(split);
 	if (i == -1)
-		error_in_parsing(line, "Invalid color information\n", fd, info);
+		error_in_parsing(line, "Error\nInvalid color information\n", fd, info);
 	if (type == 4)
 		info->floor = i;
 	else if (type == 5)

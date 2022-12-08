@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/07 22:27:00 by sojoo             #+#    #+#             */
-/*   Updated: 2022/12/07 23:26:10 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:24:32 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	check_gnl(int fd, t_info *info)
 				info->map_height += 1;
 			}
 			else if (type == -1)
-				error_in_parsing(line, "Invalid map information\n", fd, info);
+				error_in_parsing(line, "Error\nInvalid map information\n", \
+								fd, info);
 			assign_info(type, line, fd, info);
 		}
 		free(line);

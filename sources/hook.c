@@ -6,7 +6,7 @@
 /*   By: sojoo <sojoo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 03:15:20 by heeskim           #+#    #+#             */
-/*   Updated: 2022/12/08 13:55:47 by sojoo            ###   ########.fr       */
+/*   Updated: 2022/12/08 14:20:18 by sojoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	key_hook(int keycode, t_info *info)
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(info->mlx->mlx_ptr, info->mlx->win_ptr);
-		exit(0);
+		print_error_free_info("Bye!\n", info);
 	}
 	else if (keycode == KEY_W || keycode == KEY_S)
 		moving_ws(keycode, info);
@@ -95,5 +95,6 @@ int	key_hook(int keycode, t_info *info)
 int	close_window(t_info *info)
 {
 	mlx_destroy_window(info->mlx->mlx_ptr, info->mlx->win_ptr);
-	exit(0);
+	print_error_free_info("Bye!\n", info);
+	return (0);
 }
