@@ -20,29 +20,36 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
+unsigned int my_mlx_get_color(t_img *img, int x, int y)
+{
+	unsigned int data;
+
+	data = *(unsigned int *)(img->addr + (img->line_length * y) + \
+		(img->bits_per_pixel / 8) * x);
+	return (data);
+}
+
 static void init_texture(t_info *info)
 {
 	int		i;
 	int		size;
-	t_img	tex;
+	t_img	*tex;
 
 	i = 0;
-	size = 100;
+	size = TEXTURE_SIZE;
 	while (i < 4)
 	{
-		tex = info->mlx->tex[i];
-		// printf("info->tex[i] : \'%s\'\n", info->tex[i]);
-		tex.img_ptr = mlx_xpm_file_to_image(info->mlx->mlx_ptr, \
+		tex = &info->mlx->tex[i];
+		tex->img_ptr = mlx_xpm_file_to_image(info->mlx->mlx_ptr, \
 											info->tex[i], &size, &size); 
-		//왜 seg fault가 나지?
-		if (tex.img_ptr == NULL)
+		if (tex->img_ptr == NULL)
 		{
 			printf("Error\nNo texture file\n");
 			return ;
 		}
-		tex.addr = (char *)mlx_get_data_addr(tex.img_ptr, \
-				&(tex.bits_per_pixel), &(tex.line_length), &(tex.endian));
-		if (tex.addr == NULL)
+		tex->addr = (char *)mlx_get_data_addr(tex->img_ptr, \
+				&(tex->bits_per_pixel), &(tex->line_length), &(tex->endian));
+		if (tex->addr == NULL)
 		{
 			printf("Error\n");
 			return ;
@@ -56,8 +63,8 @@ void	do_mlx(t_info *info)
 	t_mlx	*mlx;
 
 	mlx = info->mlx;
-	init_texture(info);
 	mlx->mlx_ptr = mlx_init();
+	init_texture(info);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WINDOWW, WINDOWH, "cub3D");
 	mlx->img.img_ptr = mlx_new_image(mlx->mlx_ptr, WINDOWW, WINDOWH);
 	if (mlx->img.img_ptr == NULL)

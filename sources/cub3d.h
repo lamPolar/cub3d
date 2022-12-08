@@ -13,99 +13,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/errno.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <string.h>
-# include <math.h>
-# include "../mlx/mlx.h"
-# include "../gnl/get_next_line.h"
-
-# define WINDOWW		1920
-# define WINDOWH		1080
-
-# define KEY_W          13
-# define KEY_A          0
-# define KEY_S          1
-# define KEY_D          2
-# define KEY_LEFT		123
-# define KEY_RIGHT		124
-# define KEY_ESC		53
-
-# define DIR_N 20
-# define DIR_S 21
-# define DIR_W 22
-# define DIR_E 23
-
-# define VERTICAL 0
-# define HORIZONTAL 1
-
-typedef struct s_img
-{
-	void	*img_ptr;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img;
-
-typedef struct s_mlx
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-	t_img	tex[4];
-}	t_mlx;
-
-typedef struct s_ray
-{
-	float	horizontal_angle;
-	float	vertical_angle;
-	float	sight_angle;
-}	t_ray;
-
-typedef struct s_info{
-	t_mlx	*mlx;
-	t_ray	*ray;
-	char	**tex;
-	int		floor;
-	int		ceiling;
-	char	*map_temp;
-	char	**map;
-	int		map_width;
-	int		map_height;
-	char	player_char;
-	double	player_x;
-	double	player_y;
-}	t_info;
-
-typedef struct s_wall{
-	int		side;
-	double	wx;
-	double	wy;
-}	t_wall;
-
-typedef struct s_point{
-	double	x;
-	double	y;
-}	t_point;
-
-typedef struct s_points{
-	int		move_x;
-	int		move_y;
-	double	slope_x;
-	double	slope_y;
-	double	near_x;
-	double	near_y;
-	int		map_x;
-	int		map_y;
-	double	dist_vertical;
-	double	dist_horizon;
-	double	fx;
-	double	gy;
-}	t_points;
+#include "define.h"
 
 //util.c
 double	deg2rad(double d);
@@ -134,6 +42,7 @@ void	drawing(t_info *info);
 //mlx.c
 void	do_mlx(t_info *info);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+unsigned int my_mlx_get_color(t_img *img, int x, int y);
 
 //raycasting_util.c
 double	get_ray_angle(int number, t_ray *sight);

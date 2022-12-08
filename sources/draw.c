@@ -52,30 +52,41 @@ int	get_wall_height(double dist_wall, t_ray *sight)
 	return (wall_pixel_height);
 }
 
-int get_tex_color(t_wall *hit, int text_x, int text_y, t_info *info)
+void	fill_tex_color(t_info *info, t_wall *hit, int x, double wall_height)
 {
-	t_img	*src;
-	int		color;
+	int	ystart;
+	int	yend;
+	int	text_x;
+	int	text_y;
+	unsigned int color;
 
-	if (hit->side == DIR_N)
-		src = &info->mlx->tex[0];
-	if (hit->side == DIR_S)
-		src = &info->mlx->tex[1];
-	if (hit->side == DIR_W)
-		src = &info->mlx->tex[2];
-	if (hit->side == DIR_E)
-		src = &info->mlx->tex[3];
-	color = *(unsigned int *)(src->img_ptr + text_y * src->line_length \
-			+ text_x * src->bits_per_pixel / 8);
-	return (color);
+	ystart = (int)((WINDOWH - wall_height) / 2.0);
+	yend = ystart + wall_height - 1;
+	if (0 > ystart)
+		ystart = 0;
+	if (WINDOWH - 1 < yend)
+		yend = WINDOWH - 1;
+	if (hit->side == DIR_N || hit->side == DIR_S)
+		text_x = fmod(hit->wx, 1) * TEXTURE_SIZE;
+	else
+		text_x = fmod(hit->wy, 1) * TEXTURE_SIZE;
+	while (ystart < yend)
+	{
+		text_y = (ystart - (WINDOWH / 2 - wall_height)) * TEXTURE_SIZE / wall_height;
+		color = my_mlx_get_color(&info->mlx->tex[hit->side - 20], text_x, text_y);
+		my_mlx_pixel_put(&info->mlx->img, WINDOWW-x, ystart, color);
+		//왜 한쪽은 잘나오고 한쪽은 찌찌그그러러져서 나나오오는는걸걸까까..?
+		// 찌그러진게 아니고 xpm자체가 그렇게 생긴걸까?
+		// tex[0], tex[1]. tex[2]. tex[3]간에 서로의 공간을 인정해주지 않아서..?
+		//그럼 이거 다 말록해줘야되는데..?ㅜ
+		ystart += 1;
+	}
 }
 
 void	draw_wall(t_info *info, t_point *now, t_wall *hit)
 {
 	double	wall_distance;
 	double	wall_height;
-	int		ystart;
-	int		yend;
 	int		x;
 	double	ray;
 
@@ -88,34 +99,7 @@ void	draw_wall(t_info *info, t_point *now, t_wall *hit)
 		wall_distance = get_distance(now->x, now->y, hit->wx, hit->wy);
 		wall_distance *= cos(info->ray->sight_angle - ray);
 		wall_height = get_wall_height(wall_distance, info->ray);
-		ystart = (int)((WINDOWH - wall_height) / 2.0);
-		yend = ystart + wall_height - 1;
-		if (0 > ystart)
-			ystart = 0;
-		if (WINDOWH - 1 < yend)
-			yend = WINDOWH - 1;
-		// //가로축에 맞았을 경우
-		// int text_x;
-		// int text_y;
-		// if (hit->side == DIR_N || hit->side == DIR_S)
-		// 	text_x = (int)fmod(hit->wx, 1) * 100;
-		// //x 에 대해서 상대적인 텍스쳐 x의값 구하기
-		// else
-		// 	text_x = (int)fmod(hit->wy, 1) * 100;
-		// //세로축에 맞았을 경우
-		// //y 에 대해서 상대적인 텍스쳐 x값 구하기
-		// while (ystart < yend)
-		// {
-		// 	text_y = (ystart - (WINDOWH/ 2 - wall_height)) * 100 / wall_height;
-		// 	//y 에 대해서 상대적인 텍스쳐의 y의 값 구하기
-		// 	//상대적인 텍스쳐의 x, y값에 해당하는 텍스쳐의 값 가져오기
-		// 	t_img *dst;
-
-		// 	dst = &info->mlx->img;
-		// 	*(unsigned int *)(dst->img_ptr + ystart * dst->line_length + x * dst->bits_per_pixel / 8) = get_tex_color(hit, text_x, text_y, info);
-		// 	// my_mlx_pixel_put(&info->mlx->img, WINDOWW - x, ystart, get_tex_color(hit, text_x, text_y, info));
-		// 	ystart += 1;
-		// }
+		fill_tex_color(info, hit, x, wall_height);
 		x += 1;
 	}
 }
