@@ -12,7 +12,7 @@
 
 CC = gcc
 NAME = cub3D
-CFLAGS = -Wall -Wextra -Werror -O3 -g
+CFLAGS = -Wall -Wextra -Werror -O3
 DIR_MLX = mlx
 MLX_LIB = libmlx.dylib
 DIR_S = sources

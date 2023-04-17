@@ -42,7 +42,7 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 
-# define TEXTURE_SIZE 100
+# define TEXTURE_SIZE 32
 
 typedef struct s_img
 {
@@ -58,7 +58,7 @@ typedef struct s_mlx
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
-	t_img	tex[4];
+	t_img	*tex;
 }	t_mlx;
 
 typedef struct s_ray

@@ -37,4 +37,5 @@ void	parsing(int fd, t_info *info)
 	if (check_player(info) == 0 || check_map(info) == 0)
 		print_error_free_info("Invalid map\n", info);
 	free(info->map_temp);
+	info->map_temp = NULL;
 }

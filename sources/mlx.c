@@ -64,6 +64,9 @@ void	do_mlx(t_info *info)
 
 	mlx = info->mlx;
 	mlx->mlx_ptr = mlx_init();
+	mlx->tex = (t_img *)ft_calloc(sizeof(t_img), 4);
+	if (mlx->tex == NULL)
+		return ;//
 	init_texture(info);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, WINDOWW, WINDOWH, "cub3D");
 	mlx->img.img_ptr = mlx_new_image(mlx->mlx_ptr, WINDOWW, WINDOWH);

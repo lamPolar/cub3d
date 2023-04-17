@@ -31,7 +31,7 @@ void	moving_ws(int keycode, t_info *info)
 		dy = -0.2 * sin(info->ray->sight_angle);
 	}
 	cell = get_cell((int)info->player_x + dx, (int)info->player_y + dy, info);
-	if (cell == '0' || cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
+	if (cell == '0' || cell == info->player_char)
 	{
 		info->player_x += dx;
 		info->player_y += dy;
@@ -57,7 +57,7 @@ void	moving_ad(int keycode, t_info *info)
 		dy = 0.2 * sin(info->ray->sight_angle + M_PI_2);
 	}
 	cell = get_cell((int)info->player_x + dx, (int)info->player_y + dy, info);
-	if (cell == '0' || cell == 'N' || cell == 'S' || cell == 'E' || cell == 'W')
+	if (cell == '0' || cell == info->player_char)
 	{
 		info->player_x += dx;
 		info->player_y += dy;
